@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics: The Future is Now</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #667eea;
+            }
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px #667eea, 0 0 40px #667eea;
+            }
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .nav button {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .nav button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+        .section:nth-child(5) { animation-delay: 0.8s; }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #667eea;
+        }
+
+        .timeline-item h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-box .number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .interactive-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .interactive-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .quiz-container {
+            background: #f5f7fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .quiz-container.active {
+            display: block;
+            animation: fadeInUp 0.5s;
+        }
+
+        .quiz-option {
+            background: white;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            border-color: #667eea;
+            transform: translateX(10px);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 ROBOTICS: The Future is Now</h1>
+        <p>Exploring the World of Intelligent Machines</p>
+        <div class="nav">
+            <button onclick="scrollToSection('intro')">Introduction</button>
+            <button onclick="scrollToSection('types')">Types</button>
+            <button onclick="scrollToSection('history')">History</button>
+            <button onclick="scrollToSection('future')">Future</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section" id="intro">
+            <h2>What is Robotics?</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;">
+                Robotics is an interdisciplinary field that combines engineering, computer science, and technology to design, construct, and operate robots. These intelligent machines can perform tasks autonomously or semi-autonomously, revolutionizing industries from manufacturing to healthcare.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                Today, robots are not just science fiction—they're reality. They assist surgeons in operating rooms, explore the depths of oceans, navigate the surface of Mars, and even help in our homes with daily chores.
+            </p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="number">$62B</div>
+                    <div>Global Robotics Market 2024</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">3M+</div>
+                    <div>Industrial Robots Worldwide</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">45%</div>
+                    <div>Expected Growth by 2030</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="types">
+            <h2>Types of Robots</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=300&fit=crop" alt="Industrial Robot">
+                    <h3>Industrial Robots</h3>
+                    <p>Used in manufacturing and assembly lines, these robots perform repetitive tasks with precision and speed, increasing productivity and safety in factories worldwide.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?w=500&h=300&fit=crop" alt="Medical Robot">
+                    <h3>Medical Robots</h3>
+                    <p>Surgical robots assist doctors in performing complex procedures with minimal invasiveness, improving patient outcomes and recovery times.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1563207153-f403bf289096?w=500&h=300&fit=crop" alt="Service Robot">
+                    <h3>Service Robots</h3>
+                    <p>From vacuum cleaners to delivery drones, service robots make our daily lives easier by automating household and commercial tasks.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=500&h=300&fit=crop" alt="Humanoid Robot">
+                    <h3>Humanoid Robots</h3>
+                    <p>Designed to resemble and interact like humans, these robots are used in research, entertainment, and customer service applications.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&h=300&fit=crop" alt="Space Robot">
+                    <h3>Space Exploration Robots</h3>
+                    <p>Rovers like Mars Perseverance explore distant planets, collecting data and samples in environments too harsh for humans.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1599009434802-ca1dd09895f6?w=500&h=300&fit=crop" alt="Agricultural Robot">
+                    <h3>Agricultural Robots</h3>
+                    <p>Autonomous tractors and harvesting robots are transforming farming by increasing efficiency and reducing labor costs.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="history">
+            <h2>History of Robotics</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>1921 - The Word "Robot" is Born</h3>
+                    <p>Czech writer Karel Čapek introduces the term "robot" in his play R.U.R. (Rossum's Universal Robots), derived from the Czech word "robota" meaning forced labor.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>1961 - First Industrial Robot</h3>
+                    <p>Unimate, the first industrial robot, begins working on a General Motors assembly line, marking the start of automation in manufacturing.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>1997 - Mars Pathfinder</h3>
+                    <p>NASA's Sojourner rover becomes the first robot to explore Mars, opening new frontiers in space exploration.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>2000 - ASIMO</h3>
+                    <p>Honda unveils ASIMO, an advanced humanoid robot capable of walking, running, and recognizing faces and voices.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>2020s - AI-Powered Robots</h3>
+                    <p>Modern robots integrate artificial intelligence, machine learning, and advanced sensors, enabling autonomous decision-making and learning from experience.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="future">
+            <h2>The Future of Robotics</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                The future of robotics is incredibly exciting and full of possibilities. As technology advances, we can expect:
+            </p>
+            <div style="background: #f5f7fa; padding: 2rem; border-radius: 15px; margin-bottom: 1.5rem;">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">🚀 Emerging Trends</h3>
+                <ul style="list-style-position: inside; line-height: 2;">
+                    <li><strong>Collaborative Robots (Cobots):</strong> Working alongside humans safely in shared workspaces</li>
+                    <li><strong>Soft Robotics:</strong> Flexible robots inspired by biological organisms</li>
+                    <li><strong>Swarm Robotics:</strong> Multiple robots working together to accomplish complex tasks</li>
+                    <li><strong>Nanorobots:</strong> Microscopic robots for medical applications inside the human body</li>
+                    <li><strong>Autonomous Vehicles:</strong> Self-driving cars and delivery robots transforming transportation</li>
+                </ul>
+            </div>
+            
+            <button class="interactive-btn" onclick="toggleQuiz()">Test Your Knowledge! 🧠</button>
+            
+            <div class="quiz-container" id="quiz">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Quick Robotics Quiz</h3>
+                <p style="margin-bottom: 1rem;"><strong>Question: Which robot was the first to explore Mars?</strong></p>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">A) Spirit</div>
+                <div class="quiz-option" onclick="checkAnswer(this, true)">B) Sojourner</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">C) Curiosity</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">D) Perseverance</div>
+                <div id="result" style="margin-top: 1rem; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🤖 Created for English Class - Robotics Presentation 2024</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">The future is automated, intelligent, and exciting!</p>
+    </div>
+
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function toggleQuiz() {
+            const quiz = document.getElementById('quiz');
+            quiz.classList.toggle('active');
+        }
+
+        function checkAnswer(element, isCorrect) {
+            const result = document.getElementById('result');
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                opt.style.opacity = '0.6';
+            });
+            
+            if (isCorrect) {
+                element.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                element.style.color = 'white';
+                element.style.border = '2px solid #667eea';
+                result.textContent = '✅ Correct! Sojourner was part of the Mars Pathfinder mission in 1997.';
+                result.style.color = '#28a745';
+            } else {
+                element.style.background = '#ff6b6b';
+                element.style.color = 'white';
+                result.textContent = '❌ Not quite. The correct answer is Sojourner!';
+                result.style.color = '#dc3545';
+            }
+        }
+
+        // Add scroll animation observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
